@@ -1,10 +1,12 @@
+import React from "react";
+import MainPage from "./components/layout/MainPage";
 import "./App.css";
 
 function App() {
   return (
-    <h1 className="text-green-500 bg-green-200 p-4">
-      Tailwind has been configured
-    </h1>
+    <React.Fragment>
+      <MainPage />
+    </React.Fragment>
   );
 }
 
