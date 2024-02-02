@@ -1,11 +1,16 @@
+import React from "react";
+import MainPage from "./components/layout/MainPage";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-function App() {
+const App = () => {
   return (
-    <h1 className="text-green-500 bg-green-200 p-4">
-      Tailwind has been configured
-    </h1>
+    <React.Fragment>
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
