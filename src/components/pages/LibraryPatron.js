@@ -1,7 +1,7 @@
 import React from "react";
 
-function LibraryPatron() {
+const LibraryPatron = () => {
   return <div>List of Library Patrons</div>;
-}
+};
 
 export default LibraryPatron;

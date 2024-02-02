@@ -4,7 +4,7 @@ import Sidebar from "./Sidebar";
 import NavPage from "./NavPage";
 import library from "../../assets/library.svg";
 
-export default function MainPage() {
+export default MainPage = () => {
   const bgImage = {
     backgroundImage: `url(${library})`,
     backgroundSize: "300px 300px",
@@ -30,4 +30,4 @@ export default function MainPage() {
       </div>
     </React.Fragment>
   );
-}
+};

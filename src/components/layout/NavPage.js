@@ -4,7 +4,7 @@ import Genres from "../pages/Genre";
 import LibraryPatron from "../pages/LibraryPatron";
 import Book from "../pages/Book";
 
-export default function NavPage() {
+export default NavPage = () => {
   return (
     <React.Fragment>
       <section className="bg-white m-4 p-5 rounded font-bold text-2xl">
@@ -18,4 +18,4 @@ export default function NavPage() {
       </section>
     </React.Fragment>
   );
-}
+};

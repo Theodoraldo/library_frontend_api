@@ -2,7 +2,7 @@ import React from "react";
 import { SidebarData } from "../data/SidebarData";
 import { NavLink } from "react-router-dom";
 
-export default function Sidebar() {
+export default Sidebar = () => {
   const addActive =
     "text-gray-800 border-l-4 p-1 bg-gray-400 w-full rounded border-blue-500 font-semibold";
   const removeActive = "text-white w-full";
@@ -35,4 +35,4 @@ export default function Sidebar() {
       </section>
     </React.Fragment>
   );
-}
+};

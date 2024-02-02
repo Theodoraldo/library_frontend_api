@@ -3,7 +3,7 @@ import MainPage from "./components/layout/MainPage";
 import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
-function App() {
+const App = () => {
   return (
     <React.Fragment>
       <BrowserRouter>
@@ -11,6 +11,6 @@ function App() {
       </BrowserRouter>
     </React.Fragment>
   );
-}
+};
 
 export default App;

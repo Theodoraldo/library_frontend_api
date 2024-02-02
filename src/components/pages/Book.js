@@ -1,7 +1,7 @@
 import React from "react";
 
-function Book() {
+const Book = () => {
   return <div>List of Books</div>;
-}
+};
 
 export default Book;
