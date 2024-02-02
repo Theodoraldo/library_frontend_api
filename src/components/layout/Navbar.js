@@ -2,7 +2,7 @@ import React from "react";
 import book from "../../assets/books.svg";
 import user from "../../assets/user.svg";
 
-export default Navbar = () => {
+const Navbar = () => {
   return (
     <React.Fragment>
       <nav className="w-full h-25 bg-gray-800">
@@ -23,3 +23,5 @@ export default Navbar = () => {
     </React.Fragment>
   );
 };
+
+export default Navbar;
