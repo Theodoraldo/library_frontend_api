@@ -1,11 +1,14 @@
 import React from "react";
 import MainPage from "./components/layout/MainPage";
+import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 
 function App() {
   return (
     <React.Fragment>
-      <MainPage />
+      <BrowserRouter>
+        <MainPage />
+      </BrowserRouter>
     </React.Fragment>
   );
 }

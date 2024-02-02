@@ -1,7 +1,12 @@
 import React from "react";
 import { SidebarData } from "../data/SidebarData";
+import { NavLink } from "react-router-dom";
 
 export default function Sidebar() {
+  const addActive =
+    "text-gray-800 border-l-4 p-1 bg-gray-400 w-full rounded border-blue-500 font-semibold";
+  const removeActive = "text-white w-full";
+
   return (
     <React.Fragment>
       <section>
@@ -9,13 +14,20 @@ export default function Sidebar() {
           <ul className="flex flex-col gap-5 p-5">
             {SidebarData.map((item, index) => {
               return (
-                <li
+                <div
                   key={index}
-                  className="flex items-center gap-2 text-xl font-semibold"
+                  className="flex items-center gap-2 p-1 text-xl font-semibold"
                 >
-                  <span>{item.icon}</span>
-                  <span>{item.title}</span>
-                </li>
+                  <NavLink
+                    to={item.path}
+                    className={({ isActive }) =>
+                      isActive ? addActive : removeActive
+                    }
+                  >
+                    <span>{item.icon}</span>
+                    <span>{item.title}</span>
+                  </NavLink>
+                </div>
               );
             })}
           </ul>

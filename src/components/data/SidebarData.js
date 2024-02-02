@@ -1,14 +1,19 @@
-import * as FaIcons from "react-icons/fa";
+// import * as FaIcons from "react-icons/fa";
 
 export const SidebarData = [
   {
     title: "Genre of Books",
-    path: "/genre",
+    path: "/genres",
     icon: "",
   },
   {
     title: "Patrons",
     path: "/patrons",
+    icon: "",
+  },
+  {
+    title: "Books",
+    path: "/books",
     icon: "",
   },
 ];
