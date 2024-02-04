@@ -1,0 +1,15 @@
+.base_page__header {
+  color: white;
+  text-align: center;
+}
+
+.base_page {
+  width: 90%;
+  max-width: 25rem;
+  margin: 7rem auto;
+  text-align: center;
+}
+
+.base_page form {
+  margin-bottom: 1rem;
+}
