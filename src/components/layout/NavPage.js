@@ -12,7 +12,6 @@ const NavPage = () => {
       <section className="bg-white m-4 p-5 rounded">
         <div>
           <Routes>
-            <Route path="/" element={<Book />} />
             <Route path="/genres" element={<Genres />} />
             <Route path="/patrons" element={<LibraryPatron />} />
             <Route path="/books" element={<Book />} />
