@@ -36,7 +36,7 @@ const BasePage = () => {
       </div>
       <div className="p-5">
         <Button type="submit" inverse onClick={() => navigate("/auth")}>
-          Student
+          Admin
         </Button>
         <Button type="submit" inverse onClick={() => navigate("/auth")}>
           Librarian

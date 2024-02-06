@@ -72,7 +72,7 @@ const Auth = () => {
   return (
     <Card className="authentication">
       <div className="flex justify-between">
-        <h2>LOGIN REQUIRED</h2>
+        {!isLoginMode ? <h2>SIGNUP REQUIRED</h2> : <h2>LOGIN REQUIRED</h2>}
         <button onClick={closeBtn}>
           <IoMdCloseCircle className="w-5 h-5 text-red-600" />
         </button>

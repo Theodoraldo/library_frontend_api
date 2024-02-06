@@ -54,7 +54,6 @@ const App = () => {
 
   return (
     <AuthContext.Provider
-      store={store}
       value={{ isLoggedIn: isLoggedIn, login: login, logout: logout }}
     >
       <Router>

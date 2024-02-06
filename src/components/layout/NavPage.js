@@ -1,19 +1,23 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Outlet } from "react-router-dom";
 import Genres from "../pages/Admin/Genre";
 import LibraryPatron from "../pages/Admin/LibraryPatron";
 import Book from "../pages/Admin/Book";
+import CreateBook from "../pages/Admin/Book/CreateBook";
+import CreateGenre from "../pages/Admin/Genre/CreateGenre";
 
 const NavPage = () => {
   return (
     <React.Fragment>
-      <section className="bg-white m-4 p-5 rounded font-bold text-2xl">
+      <section className="bg-white m-4 p-5 rounded">
         <div>
           <Routes>
-            <Route path="/" element={<Book />} />
-            <Route path="/genres" element={<Genres />} />
-            <Route path="/patrons" element={<LibraryPatron />} />
-            <Route path="/books" element={<Book />} />
+            <Route path="genres/*" element={<Genres />} />
+            <Route path="patrons" element={<LibraryPatron />} />
+            <Route path="books" element={<Book />} />
+            <Route path="book/new" element={<CreateBook />} />
+            <Route path="genre/new" element={<CreateGenre />} />
+            <Route path="*" element={<Outlet />} />
           </Routes>
         </div>
       </section>
