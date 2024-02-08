@@ -1,7 +1,12 @@
 import React from "react";
+import { postGenre } from "../../../../redux/Genre/postGenreDataSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CreateGenre = () => {
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const initialValues = {
     genreName: "",
     description: "",
@@ -9,6 +14,8 @@ const CreateGenre = () => {
 
   const onSubmit = (values) => {
     console.log("formik values", values);
+    dispatch(postGenre(values));
+    Navigate("/mainpage/genres");
   };
 
   const validate = (values) => {

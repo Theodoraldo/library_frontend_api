@@ -4,7 +4,7 @@ import { TbCategoryFilled } from "react-icons/tb";
 
 export const SidebarData = [
   {
-    title: "Genre of Books",
+    title: "Genre (Category)",
     path: "/mainpage/genres",
     icon: <TbCategoryFilled />,
   },
