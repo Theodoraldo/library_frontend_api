@@ -1,7 +1,12 @@
 import React from "react";
-import { useFormik } from "formik";
+import { postGenre } from "../../../../redux/Genre/postGenreDataSlice";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const CreateGenre = () => {
+  const dispatch = useDispatch();
+  const Navigate = useNavigate();
   const initialValues = {
     genreName: "",
     description: "",
@@ -9,6 +14,8 @@ const CreateGenre = () => {
 
   const onSubmit = (values) => {
     console.log("formik values", values);
+    dispatch(postGenre(values));
+    Navigate("/mainpage/genres");
   };
 
   const validate = (values) => {
@@ -22,16 +29,14 @@ const CreateGenre = () => {
     return errors;
   };
 
-  const formik = useFormik({
-    initialValues,
-    onSubmit,
-    validate,
-  });
-
   return (
-    <>
-      <div className="text-2xl font-bold">Create New Genre</div>
-      <form onSubmit={formik.handleSubmit}>
+    <Formik
+      initialValues={initialValues}
+      validate={validate}
+      onSubmit={onSubmit}
+    >
+      <Form>
+        <div className="text-2xl font-bold">Create New Genre</div>
         <div className="mb-4 mt-4">
           <label
             className="block text-gray-700 text-sm mb-2"
@@ -39,19 +44,18 @@ const CreateGenre = () => {
           >
             Genre Name:
           </label>
-          <input
+          <Field
             className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
             id="genreName"
+            name="genreName"
             type="text"
             placeholder="Genre Name"
-            onChange={formik.handleChange}
-            value={formik.values.genreName}
           />
-          {formik.errors.genreName ? (
-            <div className="text-red-500 text-xs">
-              {formik.errors.genreName}
-            </div>
-          ) : null}
+          <ErrorMessage
+            name="genreName"
+            component="div"
+            className="text-red-500 text-xs"
+          />
         </div>
         <div className="mb-4 mt-4">
           <label
@@ -60,19 +64,18 @@ const CreateGenre = () => {
           >
             Description:
           </label>
-          <textarea
+          <Field
             className="appearance-none border rounded w-full h-40 py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
             id="description"
-            type="textarea"
+            as="textarea"
+            name="description"
             placeholder="Description"
-            onChange={formik.handleChange}
-            value={formik.values.description}
           />
-          {formik.errors.description ? (
-            <div className="text-red-500 text-xs">
-              {formik.errors.description}
-            </div>
-          ) : null}
+          <ErrorMessage
+            name="description"
+            component="div"
+            className="text-red-500 text-xs"
+          />
         </div>
         <div className="flex items-center justify-between">
           <button
@@ -82,8 +85,8 @@ const CreateGenre = () => {
             Save
           </button>
         </div>
-      </form>
-    </>
+      </Form>
+    </Formik>
   );
 };
 

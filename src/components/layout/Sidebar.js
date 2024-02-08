@@ -24,8 +24,10 @@ const Sidebar = () => {
                       isActive ? addActive : removeActive
                     }
                   >
-                    <span>{item.icon}</span>
-                    <span>{item.title}</span>
+                    <div className="flex items-center gap-2">
+                      <span>{item.icon}</span>
+                      <span>{item.title}</span>
+                    </div>
                   </NavLink>
                 </div>
               );
