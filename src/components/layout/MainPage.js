@@ -11,12 +11,12 @@ const MainPage = () => {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundColor: "#d1d5db",
-    height: "90vh",
+    height: "h-auto",
   };
   return (
     <React.Fragment>
       <div className="flex flex-col">
-        <section>
+        <section className="sticky top-0">
           <Navbar />
         </section>
         <section className="grid grid-cols-12">

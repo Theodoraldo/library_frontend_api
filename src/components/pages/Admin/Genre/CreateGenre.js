@@ -13,7 +13,6 @@ const CreateGenre = () => {
   };
 
   const onSubmit = (values) => {
-    console.log("formik values", values);
     dispatch(postGenre(values));
     Navigate("/mainpage/genres");
   };
