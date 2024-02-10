@@ -31,6 +31,7 @@ export const COLUMNS = [
 
       const handleDelete = (id) => {
         dispatch(deletePatron(id));
+
         setShowConfirmation(false);
       };
 
