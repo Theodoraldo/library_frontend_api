@@ -6,10 +6,10 @@ import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 
 export const COLUMNS = [
-  {
-    Header: "ID",
-    accessor: "id",
-  },
+  // {
+  //   Header: "ID",
+  //   accessor: "id",
+  // },
   {
     Header: "Genre",
     accessor: "genre_name",

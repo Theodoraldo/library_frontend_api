@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { postPatron } from "../../../../redux/Patron/postPatronDataSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const CreatePatron = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const initialValues = {
     firstName: "",
     lastName: "",
@@ -63,9 +65,9 @@ const CreatePatron = () => {
     return errors;
   };
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = (values) => {
     dispatch(postPatron(values));
-    onSubmitProps.resetForm();
+    navigate("/mainpage/patrons");
   };
 
   return (

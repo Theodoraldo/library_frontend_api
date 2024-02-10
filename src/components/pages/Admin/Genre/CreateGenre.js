@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 
 const CreateGenre = () => {
   const dispatch = useDispatch();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const initialValues = {
     genreName: "",
     description: "",
@@ -14,7 +14,7 @@ const CreateGenre = () => {
 
   const onSubmit = (values) => {
     dispatch(postGenre(values));
-    Navigate("/mainpage/genres");
+    navigate("/mainpage/genres");
   };
 
   const validate = (values) => {

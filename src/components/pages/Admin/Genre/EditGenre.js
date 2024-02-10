@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchOneGenre } from "../../../../redux/Genre/getOneGenreSlice";
+import { updateGenre } from "../../../../redux/Genre/updateGenreSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -23,6 +24,7 @@ const EditGenre = () => {
   }, [dispatch, id]);
 
   const onSubmit = (values) => {
+    dispatch(updateGenre(values));
     Navigate("/mainpage/genres");
   };
 
