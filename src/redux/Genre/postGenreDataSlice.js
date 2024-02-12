@@ -31,7 +31,7 @@ const postGenreSlice = createSlice({
       .addCase(postGenre.fulfilled, (state, action) => ({
         ...state,
         loading: false,
-        getAllGenreData: action.payload,
+        saveGenreData: action.payload,
       }))
       .addCase(postGenre.rejected, (state, action) => ({
         ...state,

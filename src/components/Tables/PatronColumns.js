@@ -1,22 +1,26 @@
 import { useState } from "react";
+import { deletePatron } from "../../redux/Patron/deletePatronSlice";
 import { useDispatch } from "react-redux";
-import { deleteGenre } from "../../redux/Genre/deleteGenreDataSlice";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 
 export const COLUMNS = (setRefresh) => [
-  // {
-  //   Header: "ID",
-  //   accessor: "id",
-  // },
   {
-    Header: "Genre",
-    accessor: "genre_name",
+    Header: "Full Name",
+    accessor: (row) => `${row.firstname} ${row.lastname}`,
   },
   {
-    Header: "Description",
-    accessor: "description",
+    Header: "contact",
+    accessor: "contact",
+  },
+  {
+    Header: "Location",
+    accessor: "location",
+  },
+  {
+    Header: "address",
+    accessor: "address",
   },
   {
     Header: "Action",
@@ -26,7 +30,7 @@ export const COLUMNS = (setRefresh) => [
       const [showConfirmation, setShowConfirmation] = useState(false);
 
       const handleDelete = (id) => {
-        dispatch(deleteGenre(id));
+        dispatch(deletePatron(id));
         setShowConfirmation(false);
         setRefresh(true);
       };
@@ -35,7 +39,7 @@ export const COLUMNS = (setRefresh) => [
         <div className="flex justify-center gap-2">
           <button
             className="shadow-lg bg-blue-100 hover:bg-blue-200 hover:text-blue-800 text-blue-700 font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline"
-            onClick={() => navigate(`/mainpage/genre/edit/${row.original.id}`)}
+            onClick={() => navigate(`/mainpage/patron/edit/${row.original.id}`)}
           >
             <FaRegEdit />
           </button>
@@ -45,13 +49,13 @@ export const COLUMNS = (setRefresh) => [
           >
             <RiDeleteBin5Line />
           </button>
-
+          {/* Confirmation dialog */}
           {showConfirmation && (
             <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <p className="mb-4">
-                  Are you sure you want to delete {row.original.genre_name}{" "}
-                  genre?
+                  Are you sure you want to delete{" "}
+                  {row.original.firstname + " " + row.original.lastname} ?
                 </p>
                 <div className="flex justify-center">
                   <button

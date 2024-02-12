@@ -5,6 +5,9 @@ import LibraryPatron from "../pages/Admin/LibraryPatron";
 import Book from "../pages/Admin/Book";
 import CreateBook from "../pages/Admin/Book/CreateBook";
 import CreateGenre from "../pages/Admin/Genre/CreateGenre";
+import CreatePatron from "../pages/Admin/Patron/CreatePatron";
+import EditGenre from "../pages/Admin/Genre/EditGenre";
+import EditPatron from "../pages/Admin/Patron/EditPatron";
 
 const NavPage = () => {
   return (
@@ -17,6 +20,9 @@ const NavPage = () => {
             <Route path="books" element={<Book />} />
             <Route path="book/new" element={<CreateBook />} />
             <Route path="genre/new" element={<CreateGenre />} />
+            <Route path="patron/new" element={<CreatePatron />} />
+            <Route path="genre/edit/:id" element={<EditGenre />} />
+            <Route path="patron/edit/:id" element={<EditPatron />} />
             <Route path="*" element={<Outlet />} />
           </Routes>
         </div>
