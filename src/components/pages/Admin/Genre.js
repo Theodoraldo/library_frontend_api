@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAllGenre } from "../../../redux/Genre/getGenreDataSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,11 +18,14 @@ const Genre = () => {
     (state) => state.getAllGenres
   );
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     dispatch(fetchAllGenre());
-  }, [dispatch]);
+    setRefresh(false);
+  }, [dispatch, refresh]);
 
-  const columns = useMemo(() => COLUMNS, []);
+  const columns = useMemo(() => COLUMNS(setRefresh), []);
   const data = useMemo(() => getAllGenreData, [getAllGenreData]);
 
   const {
