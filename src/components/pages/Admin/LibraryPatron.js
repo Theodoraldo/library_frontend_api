@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { fetchAllPatrons } from "../../../redux/Patron/getPatronDataSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,11 +18,14 @@ const LibraryPatron = () => {
     (state) => state.getAllPatrons
   );
 
+  const [refresh, setRefresh] = useState(false);
+
   useEffect(() => {
     dispatch(fetchAllPatrons());
-  }, [dispatch]);
+    setRefresh(false);
+  }, [dispatch, refresh]);
 
-  const columns = useMemo(() => COLUMNS, []);
+  const columns = useMemo(() => COLUMNS(setRefresh), []);
   const data = useMemo(() => getAllPatronData, [getAllPatronData]);
 
   const {

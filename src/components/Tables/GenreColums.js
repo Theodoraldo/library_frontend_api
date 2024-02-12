@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 
-export const COLUMNS = [
+export const COLUMNS = (setRefresh) => [
   // {
   //   Header: "ID",
   //   accessor: "id",
@@ -28,6 +28,7 @@ export const COLUMNS = [
       const handleDelete = (id) => {
         dispatch(deleteGenre(id));
         setShowConfirmation(false);
+        setRefresh(true);
       };
 
       return (
@@ -44,7 +45,7 @@ export const COLUMNS = [
           >
             <RiDeleteBin5Line />
           </button>
-          {/* Confirmation dialog */}
+
           {showConfirmation && (
             <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-50 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg shadow-lg">

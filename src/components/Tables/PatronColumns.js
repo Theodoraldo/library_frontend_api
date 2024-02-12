@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 
-export const COLUMNS = [
+export const COLUMNS = (setRefresh) => [
   {
     Header: "Full Name",
     accessor: (row) => `${row.firstname} ${row.lastname}`,
@@ -31,8 +31,8 @@ export const COLUMNS = [
 
       const handleDelete = (id) => {
         dispatch(deletePatron(id));
-
         setShowConfirmation(false);
+        setRefresh(true);
       };
 
       return (
