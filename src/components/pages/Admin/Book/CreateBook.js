@@ -1,7 +1,11 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { postBook } from "../../../../redux/Book/postBookDataSlice";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
 const CreateBook = () => {
+  const dispatch = useDispatch();
+
   const initialValues = {
     title: "",
     author: "",
@@ -37,6 +41,7 @@ const CreateBook = () => {
   };
 
   const onSubmit = (values) => {
+    dispatch(postBook(values));
     console.log("formik values", values);
   };
 

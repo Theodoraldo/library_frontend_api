@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchAllBook } from "../../../redux/Book/getBookDataSlice";
+import ShowBooks from "./Book/ShowBooks";
 
 const Book = () => {
   const navigate = useNavigate();
@@ -29,7 +30,6 @@ const Book = () => {
             </button>
           </div>
         </div>
-
         {loading && (
           <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
             Loading data...
@@ -40,6 +40,7 @@ const Book = () => {
             {error}
           </div>
         )}
+        <ShowBooks books={getAllBookData} />
       </div>
     </React.Fragment>
   );
