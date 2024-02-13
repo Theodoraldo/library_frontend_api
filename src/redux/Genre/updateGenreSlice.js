@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseURL from "../baseURL";
+import Swal from "sweetalert2";
 
 export const updateGenre = createAsyncThunk(
   "updateGenre",
@@ -13,9 +14,23 @@ export const updateGenre = createAsyncThunk(
           description: updateGenre.description,
         }
       );
-      return response.data;
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Genre updated successfully!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return response.data;
+        }
+      });
     } catch (error) {
-      throw new Error("Failed to update data");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to update record!",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
+      // throw new Error("Failed to update data");
     }
   }
 );

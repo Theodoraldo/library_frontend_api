@@ -1,13 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseURL from "../baseURL";
+import Swal from "sweetalert2";
 
 export const deleteGenre = createAsyncThunk("deleteGenre", async (id) => {
   try {
     const response = await axios.delete(`${baseURL}api/v1/genres/${id}`);
-    return response.data;
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Genre deleted successfully!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return response.data;
+      }
+    });
   } catch (error) {
-    throw new Error("Failed to delete data");
+    Swal.fire({
+      icon: "warning",
+      title: "Oops...",
+      text: "Failed to delete genre. It may be in use! Referential integrity!",
+      footer: '<a href="">Why do I have this issue?</a>',
+    });
+    //throw new Error("Failed to delete data");
   }
 });
 

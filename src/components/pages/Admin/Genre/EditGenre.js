@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const EditGenre = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   const { getOneGenreData, loading, error } = useSelector(
     (state) => state.getOneGenre
   );
@@ -23,9 +23,9 @@ const EditGenre = () => {
     dispatch(fetchOneGenre(id));
   }, [dispatch, id]);
 
-  const onSubmit = (values) => {
+  const onSubmit = async (values) => {
     dispatch(updateGenre(values));
-    Navigate("/mainpage/genres");
+    navigate("/mainpage/genres");
   };
 
   const validate = (values) => {

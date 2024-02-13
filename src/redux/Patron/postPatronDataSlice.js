@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseURL from "../baseURL";
+import Swal from "sweetalert2";
 
 export const postPatron = createAsyncThunk("postPatron", async (patronData) => {
   try {
@@ -16,9 +17,23 @@ export const postPatron = createAsyncThunk("postPatron", async (patronData) => {
       location: patronData.location,
       state: patronData.state,
     });
-    return response.data;
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Library Patron saved successfully!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return response.data;
+      }
+    });
   } catch (error) {
-    throw new Error("Failed to save library patron's data");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Failed to save library patron's data!",
+      footer: '<a href="">Why do I have this issue?</a>',
+    });
+    // throw new Error("Failed to save library patron's data");
   }
 });
 

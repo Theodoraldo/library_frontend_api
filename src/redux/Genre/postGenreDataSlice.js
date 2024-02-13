@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseURL from "../baseURL";
+import Swal from "sweetalert2";
 
 export const postGenre = createAsyncThunk("postGenre", async (genreData) => {
   try {
@@ -8,9 +9,23 @@ export const postGenre = createAsyncThunk("postGenre", async (genreData) => {
       genre_name: genreData.genreName,
       description: genreData.description,
     });
-    return response.data;
+    Swal.fire({
+      icon: "success",
+      title: "Success",
+      text: "Genre saved successfully!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        return response.data;
+      }
+    });
   } catch (error) {
-    throw new Error("Failed to save data");
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Failed to save data!",
+      footer: '<a href="">Why do I have this issue?</a>',
+    });
+    //throw new Error("Failed to save data");
   }
 });
 

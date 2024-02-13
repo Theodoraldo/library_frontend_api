@@ -76,7 +76,7 @@ const EditPatron = () => {
     return errors;
   };
 
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = (values) => {
     dispatch(updatePatron(values));
     navigate("/mainpage/patrons");
   };
