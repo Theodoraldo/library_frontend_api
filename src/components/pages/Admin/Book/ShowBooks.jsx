@@ -1,15 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import BookDetailsModal from "../../../UIElements/BooksModel";
 
 const ShowBooks = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [showModal, setShowModal] = useState(null);
+  const [filteredBooks, setFilteredBooks] = useState([]);
   const itemsPerPage = 10;
 
-  const books = props.books
-    ? props.books.slice(
-        currentPage * itemsPerPage,
-        (currentPage + 1) * itemsPerPage
-      )
-    : [];
+  useEffect(() => {
+    const newFilteredBooks = props.books
+      ? props.books.filter((book) =>
+          book.title.toLowerCase().includes(props.filter.toLowerCase())
+        )
+      : [];
+    setFilteredBooks(newFilteredBooks);
+  }, [props.books, props.filter]);
+
+  const books = filteredBooks.slice(
+    currentPage * itemsPerPage,
+    (currentPage + 1) * itemsPerPage
+  );
 
   const nextPage = () => {
     setCurrentPage((prev) => prev + 1);
@@ -19,48 +29,45 @@ const ShowBooks = (props) => {
     setCurrentPage((prev) => prev - 1);
   };
 
+  const selectBook = (book) => {
+    setShowModal(book);
+  };
+
   return (
     <div className="overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200 mt-5">
         <thead className="bg-gray-50">
           <tr>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Image
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Title
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Author
             </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Available Copies
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Published Date
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Pages
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Note
-            </th>
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody className="bg-white divide-y divide-gray-200 cursor-pointer">
           {books.map((book, index) => (
-            <tr key={index}>
+            <tr key={index} onClick={() => selectBook(book)}>
+              <td className="px-6 py-4 whitespace-nowrap">
+                <img
+                  src={book.image}
+                  alt={book.title}
+                  className="w-10 h-10 object-cover rounded-full"
+                />
+              </td>
               <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
               <td className="px-6 py-4 whitespace-nowrap">{book.author}</td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {book.available_copies}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">
-                {book.published_date}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">{book.pages}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{book.note}</td>
             </tr>
           ))}
         </tbody>
       </table>
+      {showModal && (
+        <BookDetailsModal book={showModal} onClose={() => setShowModal(null)} />
+      )}
       <div className="flex justify-between">
         <button
           onClick={prevPage}
