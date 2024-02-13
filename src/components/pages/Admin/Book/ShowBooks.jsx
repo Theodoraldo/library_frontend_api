@@ -50,19 +50,43 @@ const ShowBooks = (props) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 cursor-pointer">
-          {books.map((book, index) => (
-            <tr key={index} onClick={() => selectBook(book)}>
-              <td className="px-6 py-4 whitespace-nowrap">
-                <img
-                  src={book.image}
-                  alt={book.title}
-                  className="w-10 h-10 object-cover rounded-full"
-                />
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
-              <td className="px-6 py-4 whitespace-nowrap">{book.author}</td>
-            </tr>
-          ))}
+          {books.map((book, index) => {
+            const base64Image = book.image_path
+              ? book.image_path.replace(/-/g, "+").replace(/_/g, "/")
+              : "";
+            const padding =
+              base64Image.length % 4
+                ? "=".repeat(4 - (base64Image.length % 4))
+                : "";
+            const paddedBase64Image = base64Image + padding;
+
+            let format;
+            if (paddedBase64Image.startsWith("/9j/")) {
+              format = "jpeg";
+            } else if (paddedBase64Image.startsWith("iVBOR")) {
+              format = "png";
+            } else if (paddedBase64Image.startsWith("R0lGOD")) {
+              format = "gif";
+            } else if (paddedBase64Image.startsWith("Qk02")) {
+              format = "bmp";
+            } else {
+              format = "jpeg"; // default to jpeg if format cannot be determined
+            }
+
+            return (
+              <tr key={index} onClick={() => selectBook(book)}>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <img
+                    src={`data:image/${format};base64,${paddedBase64Image}`}
+                    alt={book.title}
+                    className="w-10 h-10 object-cover rounded-full"
+                  />
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
+                <td className="px-6 py-4 whitespace-nowrap">{book.author}</td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
       {showModal && (

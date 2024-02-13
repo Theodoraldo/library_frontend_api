@@ -5,17 +5,8 @@ import baseURL from "../baseURL";
 const postBook = createAsyncThunk("postBook", async (bookData) => {
   console.log("BookData", bookData);
 
-  let image;
-  if (bookData.image_path && bookData.image_path instanceof File) {
-    // Convert the image file to a Base64 string
-    image = await toBase64(bookData.image_path).catch((error) => {
-      console.error("Failed to convert image to Base64:", error);
-      throw new Error("Failed to convert image to Base64");
-    });
-
-    // Rest of your code...
-  } else {
-    throw new Error("Invalid image file");
+  if (!bookData.image) {
+    throw new Error("Invalid image File");
   }
 
   try {
@@ -28,7 +19,7 @@ const postBook = createAsyncThunk("postBook", async (bookData) => {
         pages: bookData.pages,
         note: bookData.note,
         genre_id: bookData.genre_id,
-        image_path: image,
+        image_path: bookData.image,
         removed: bookData.removed,
       },
     });
@@ -37,15 +28,6 @@ const postBook = createAsyncThunk("postBook", async (bookData) => {
     throw new Error("Failed to save data");
   }
 });
-
-function toBase64(file) {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = (error) => reject(error);
-  });
-}
 
 const postBookDataSlice = createSlice({
   name: "postBooks",
