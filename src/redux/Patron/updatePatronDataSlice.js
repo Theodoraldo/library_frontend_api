@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import baseURL from "../baseURL";
+import Swal from "sweetalert2";
 
 export const updatePatron = createAsyncThunk(
   "updatePatron",
@@ -21,9 +22,22 @@ export const updatePatron = createAsyncThunk(
           identity_no: updatePatron.identityNo,
         }
       );
-      return response.data;
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Library Patron data updated successfully!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          return response.data;
+        }
+      });
     } catch (error) {
-      throw new Error("Failed to update data");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Failed to update library patron's data!",
+        footer: '<a href="">Why do I have this issue?</a>',
+      });
     }
   }
 );
