@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+
 import BookDetailsModal from "../../../UIElements/BooksModel";
+import BookImage from "../../../UIElements/BookImage";
 
 const ShowBooks = (props) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [showModal, setShowModal] = useState(null);
   const [filteredBooks, setFilteredBooks] = useState([]);
-  const itemsPerPage = 10;
+  const { getAllGenreData } = useSelector((state) => state.getAllGenres);
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const newFilteredBooks = props.books
@@ -47,43 +51,28 @@ const ShowBooks = (props) => {
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Author
             </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Genre
+            </th>
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200 cursor-pointer">
           {books.map((book, index) => {
-            const base64Image = book.image_path
-              ? book.image_path.replace(/-/g, "+").replace(/_/g, "/")
-              : "";
-            const padding =
-              base64Image.length % 4
-                ? "=".repeat(4 - (base64Image.length % 4))
-                : "";
-            const paddedBase64Image = base64Image + padding;
-
-            let format;
-            if (paddedBase64Image.startsWith("/9j/")) {
-              format = "jpeg";
-            } else if (paddedBase64Image.startsWith("iVBOR")) {
-              format = "png";
-            } else if (paddedBase64Image.startsWith("R0lGOD")) {
-              format = "gif";
-            } else if (paddedBase64Image.startsWith("Qk02")) {
-              format = "bmp";
-            } else {
-              format = "jpeg"; // default to jpeg if format cannot be determined
-            }
-
             return (
               <tr key={index} onClick={() => selectBook(book)}>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <img
-                    src={`data:image/${format};base64,${paddedBase64Image}`}
-                    alt={book.title}
-                    className="w-10 h-10 object-cover rounded-full"
+                  <BookImage
+                    imagePath={book.image_path}
+                    title={book.title}
+                    className="w-10 h-10 rounded-full"
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
                 <td className="px-6 py-4 whitespace-nowrap">{book.author}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {getAllGenreData.find((genre) => genre.id === book.genre_id)
+                    ?.genre_name || "N/A"}
+                </td>
               </tr>
             );
           })}
@@ -102,7 +91,9 @@ const ShowBooks = (props) => {
         </button>
         <button
           onClick={nextPage}
-          disabled={currentPage === props.books.length / itemsPerPage - 1}
+          disabled={
+            currentPage === Math.ceil(filteredBooks.length / itemsPerPage) - 1
+          }
           className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
         >
           Next

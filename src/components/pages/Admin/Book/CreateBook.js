@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
+import { Formik, Form } from "formik";
+
+import GenreInput from "./GenreInput";
+import FormikField from "../../../UIElements/FormikField";
+import FormikImageInput from "../../../UIElements/FormikImageInput";
 import { postBook } from "../../../../redux/Book/postBookDataSlice";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { validateBook } from "../../../Shared/Util/Validators";
 
 const CreateBook = () => {
   const dispatch = useDispatch();
-  const [file, setFile] = useState();
 
   const initialValues = {
     title: "",
@@ -18,53 +22,14 @@ const CreateBook = () => {
     image: "",
   };
 
-  const validate = (values) => {
-    let errors = {};
-    if (!values.title) {
-      errors.title = " * Required";
-    }
-    if (!values.author) {
-      errors.author = " * Required";
-    }
-    if (!values.pages) {
-      errors.pages = " * Required";
-    }
-    if (!values.available_copies) {
-      errors.available_copies = " * Required";
-    }
-    if (!values.published_date) {
-      errors.published_date = " * Required";
-    }
-    if (!values.genre_id) {
-      errors.genre_id = " * Required";
-    }
-    return errors;
-  };
-
-  const onSubmit = async (values) => {
-    if (file) {
-      await new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          const base64String = reader.result
-            .replace("data:", "")
-            .replace(/^.+,/, "");
-          resolve(base64String);
-        };
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-      });
-    }
-
+  const onSubmit = (values) => {
     dispatch(postBook({ ...values }));
-
-    console.log("formik values", values);
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      validate={validate}
+      validate={validateBook}
       onSubmit={onSubmit}
     >
       {({ setFieldValue }) => {
@@ -74,47 +39,13 @@ const CreateBook = () => {
             <div>
               <div className="flex justify-between gap-5 mt-2">
                 <div className="mb-2 mt-2 w-full">
-                  <label
-                    className="block text-gray-700 text-sm mb-2"
-                    htmlFor="title"
-                  >
-                    <span className="flex items-center gap-2">
-                      Book Title:{" "}
-                      <ErrorMessage
-                        name="title"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
-                    </span>
-                  </label>
-                  <Field
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                    id="title"
-                    type="text"
-                    name="title"
-                    placeholder="Title"
-                  />
+                  <FormikField name="title" label="Title" placeholder="Title" />
                 </div>
 
                 <div className="mb-2 mt-2 w-full">
-                  <label
-                    className="block text-gray-700 text-sm mb-2"
-                    htmlFor="author"
-                  >
-                    <span className="flex items-center gap-2">
-                      Author Name (Fullname):{" "}
-                      <ErrorMessage
-                        name="author"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
-                    </span>
-                  </label>
-                  <Field
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                    id="author"
-                    type="text"
+                  <FormikField
                     name="author"
+                    label="Author"
                     placeholder="Author Name"
                   />
                 </div>
@@ -122,71 +53,29 @@ const CreateBook = () => {
 
               <div className="flex justify-between gap-5 mt-2">
                 <div className="mb-2 mt-2 w-full">
-                  <label
-                    className="block text-gray-700 text-sm mb-2"
-                    htmlFor="published_date"
-                  >
-                    <span className="flex items-center gap-2">
-                      Published Date:{" "}
-                      <ErrorMessage
-                        name="published_date"
-                        component="div"
-                        className="text-red-500 text-sm"
-                      />
-                    </span>
-                  </label>
-                  <Field
-                    className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                    id="published_date"
-                    type="date"
+                  <FormikField
                     name="published_date"
+                    label="Published Date"
+                    type="date"
                     placeholder="Published Date"
                   />
                 </div>
 
                 <div className="flex justify-between gap-5 w-full">
                   <div className="mb-2 mt-2">
-                    <label
-                      className="block text-gray-700 text-sm mb-2"
-                      htmlFor="available_copies"
-                    >
-                      <span className="flex items-center gap-2">
-                        Available Copies:{" "}
-                        <ErrorMessage
-                          name="available_copies"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </span>
-                    </label>
-                    <Field
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                      id="available_copies"
-                      type="number"
+                    <FormikField
                       name="available_copies"
+                      label="Available Copies"
+                      type="number"
                       placeholder="Available Copies"
                     />
                   </div>
 
                   <div className="mb-2 mt-2">
-                    <label
-                      className="block text-gray-700 text-sm mb-2"
-                      htmlFor="pages"
-                    >
-                      <span className="flex items-center gap-2">
-                        Pages:{" "}
-                        <ErrorMessage
-                          name="pages"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </span>
-                    </label>
-                    <Field
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                      id="pages"
-                      type="number"
+                    <FormikField
                       name="pages"
+                      label="Pages"
+                      type="number"
                       placeholder="Pages"
                     />
                   </div>
@@ -195,91 +84,28 @@ const CreateBook = () => {
 
               <div className="flex justify-between gap-5 w-full">
                 <div className="w-full mt-2">
-                  <label
-                    className="block text-gray-700 text-sm mb-2"
-                    htmlFor="note"
-                  >
-                    Note:
-                  </label>
-                  <Field
-                    className="appearance-none border rounded w-full h-40 py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                    id="note"
-                    as="textarea"
+                  <FormikField
                     name="note"
+                    label="Note"
+                    as="textarea"
                     placeholder="Note"
                   />
                 </div>
 
                 <div className="flex flex-col justify-between gap-5 w-full">
                   <div className="mb-2 mt-2">
-                    <label
-                      className="block text-gray-700 text-sm mb-2"
-                      htmlFor="genre_id"
-                    >
-                      <span className="flex items-center gap-2">
-                        Genre:{" "}
-                        <ErrorMessage
-                          name="genre_id"
-                          component="div"
-                          className="text-red-500 text-sm"
-                        />
-                      </span>
-                    </label>
-                    <Field
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                      id="genre_id"
-                      type="text"
+                    <FormikField
                       name="genre_id"
-                      placeholder="Genre"
+                      label="Genre"
+                      component={<GenreInput id="genre_id" />}
                     />
                   </div>
 
-                  <div className="mb-2">
-                    <label
-                      className="block text-gray-700 text-sm mb-2"
-                      htmlFor="image"
-                    >
-                      Cover Image:
-                    </label>
-                    <input
-                      className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-blue-300 focus:shadow-outline"
-                      id="image"
-                      type="file"
-                      name="image"
-                      placeholder="image"
-                      onChange={async (event) => {
-                        if (event.currentTarget.files.length > 0) {
-                          const file = event.currentTarget.files[0];
-                          if (
-                            file.type !== "image/jpeg" &&
-                            file.type !== "image/png"
-                          ) {
-                            alert("Invalid image file");
-                            return;
-                          }
-                          setFile(file);
-                          const base64String = await new Promise(
-                            (resolve, reject) => {
-                              const reader = new FileReader();
-                              reader.onloadend = () => {
-                                const base64String = reader.result
-                                  .replace("data:", "")
-                                  .replace(/^.+,/, "");
-                                resolve(base64String);
-                              };
-                              reader.onerror = reject;
-                              reader.readAsDataURL(file);
-                            }
-                          );
-                          const urlSafeString = base64String
-                            .replace(/\+/g, "-")
-                            .replace(/\//g, "_")
-                            .replace(/=+$/, "");
-                          setFieldValue("image", urlSafeString);
-                        }
-                      }}
-                    />
-                  </div>
+                  <FormikImageInput
+                    name="image"
+                    label="Cover Image"
+                    id="image"
+                  />
 
                   <div className="mb-2">
                     <button
