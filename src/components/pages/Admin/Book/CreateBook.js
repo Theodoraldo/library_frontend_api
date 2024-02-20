@@ -57,8 +57,6 @@ const CreateBook = () => {
     }
 
     dispatch(postBook({ ...values }));
-
-    console.log("formik values", values);
   };
 
   return (

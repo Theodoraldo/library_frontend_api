@@ -19,7 +19,6 @@ const Book = () => {
 
   return (
     <React.Fragment>
-      {console.log(getAllBookData)}
       <div>
         <div className="text-2xl font-bold">List of Books</div>
         <div className="flex items-center justify-between">
