@@ -18,7 +18,7 @@ const BookDetailsModal = ({ book, onClose }) => {
       <BookImage
         imagePath={book.image_path}
         title={book.title}
-        className="w-32 h-32 mt-4 rounded-lg"
+        className="size-32 mt-4 rounded-lg"
       />
       <h3 className="text-lg leading-6 font-medium text-gray-900 mt-4">
         {book.title}

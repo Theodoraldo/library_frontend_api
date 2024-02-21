@@ -64,7 +64,7 @@ const ShowBooks = (props) => {
                   <BookImage
                     imagePath={book.image_path}
                     title={book.title}
-                    className="w-10 h-10 rounded-full"
+                    className="size-10 rounded-full"
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
@@ -81,11 +81,11 @@ const ShowBooks = (props) => {
       {showModal && (
         <BookDetailsModal book={showModal} onClose={() => setShowModal(null)} />
       )}
-      <div className="flex justify-between">
+      <div className="flex justify-between px-5">
         <button
           onClick={prevPage}
           disabled={currentPage === 0}
-          className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
+          className="bg-blue-500 focus:ring-red-400 ring-2 hover:ring-red-400 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
         >
           Previous
         </button>
@@ -94,7 +94,7 @@ const ShowBooks = (props) => {
           disabled={
             currentPage === Math.ceil(filteredBooks.length / itemsPerPage) - 1
           }
-          className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
+          className="bg-blue-500 focus:ring-red-400 ring-2 hover:ring-red-400 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
         >
           Next
         </button>
