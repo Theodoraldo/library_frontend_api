@@ -27,13 +27,9 @@ const IssueBook = () => {
   };
 
   useEffect(() => {
-    if (getAllBookData.length === 0) {
-      dispatch(fetchAllBook());
-    }
-    if (getAllPatronData.length === 0) {
-      dispatch(fetchAllPatrons());
-    }
-  }, [dispatch, getAllBookData, getAllPatronData]);
+    dispatch(fetchAllPatrons());
+    dispatch(fetchAllBook());
+  }, [dispatch]);
 
   const [inputBook, setInputBook] = useState("");
   const [suggestionBooks, setSuggestionBooks] = useState([]);
