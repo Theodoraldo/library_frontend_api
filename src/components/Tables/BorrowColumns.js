@@ -1,8 +1,9 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { BsFillEyeFill } from "react-icons/bs";
+import { postReturnBook } from "../../redux/History/putRetunBookDataSlice";
 
-export const COLUMNS = () => [
+export const COLUMNS = (setRefresh) => [
   {
     Header: "Library Patron Name",
     accessor: (row) =>
@@ -19,22 +20,29 @@ export const COLUMNS = () => [
   {
     Header: "Action",
     Cell: ({ row }) => {
-      // const dispatch = useDispatch();
+      const dispatch = useDispatch();
       const [showConfirmation, setShowConfirmation] = useState(false);
       const [returnDate, setReturnDate] = useState("");
       const [bookState, setBookState] = useState("");
       const [comment, setComment] = useState("");
 
-      const handleClick = (id) => {
+      const handleClick = () => {
         if (returnDate === "" || bookState === "") {
           return;
         }
-        console.log(row.original.id, returnDate, bookState, comment);
+        dispatch(
+          postReturnBook({
+            id: row.original.id,
+            returnDate: returnDate,
+            bookState: bookState,
+            comment: comment,
+          })
+        );
         setShowConfirmation(false);
         setReturnDate("");
         setBookState("");
         setComment("");
-        //setRefresh(true);
+        setRefresh(true);
       };
 
       return (

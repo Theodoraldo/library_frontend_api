@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { COLUMNS } from "../../Tables/BorrowColumns";
 import GlobalFilter from "../../Tables/GlobalFilter";
 import { useSelector, useDispatch } from "react-redux";
@@ -16,13 +16,14 @@ const BorrowedBooks = () => {
     (state) => state.getAllBorrowed
   );
 
-  useEffect(() => {
-    if (getAllBorrowedData.length === 0) {
-      dispatch(fetchBorrowedBook());
-    }
-  }, [dispatch, getAllBorrowedData]);
+  const [refresh, setRefresh] = useState(false);
 
-  const columns = useMemo(() => COLUMNS(), []);
+  useEffect(() => {
+    dispatch(fetchBorrowedBook());
+    setRefresh(false);
+  }, [dispatch, refresh]);
+
+  const columns = useMemo(() => COLUMNS(setRefresh), []);
   const data = useMemo(() => getAllBorrowedData, [getAllBorrowedData]);
 
   const {
@@ -50,14 +51,9 @@ const BorrowedBooks = () => {
           <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
         </div>
       </div>
-      {getAllBorrowedData.length === 0 && (
-        <div className="text-gray-500 font-bold bg-gray-100 p-3 mt-3 rounded">
-          No data is present
-        </div>
-      )}
       {loading && (
         <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
-          Loading data...
+          Loading data ...
         </div>
       )}
       {error && (
