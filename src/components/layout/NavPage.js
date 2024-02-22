@@ -3,6 +3,7 @@ import { Route, Routes, Outlet } from "react-router-dom";
 import Genres from "../pages/Admin/Genre";
 import LibraryPatron from "../pages/Admin/LibraryPatron";
 import Book from "../pages/Admin/Book";
+import BorrowedBooks from "../pages/Admin/BorrowedBooks";
 import CreateBook from "../pages/Admin/Book/CreateBook";
 import CreateGenre from "../pages/Admin/Genre/CreateGenre";
 import CreatePatron from "../pages/Admin/Patron/CreatePatron";
@@ -25,6 +26,7 @@ const NavPage = () => {
             <Route path="genre/edit/:id" element={<EditGenre />} />
             <Route path="patron/edit/:id" element={<EditPatron />} />
             <Route path="issue_books" element={<IssueBook />} />
+            <Route path="due_books" element={<BorrowedBooks />} />
             <Route path="*" element={<Outlet />} />
           </Routes>
         </div>

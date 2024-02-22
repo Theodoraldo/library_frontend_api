@@ -70,7 +70,7 @@ const LibraryPatron = () => {
         </div>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && getAllPatronData.length > 0 && (
         <>
           <table
             {...getTableProps()}

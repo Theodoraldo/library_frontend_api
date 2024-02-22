@@ -70,7 +70,7 @@ const Genre = () => {
         </div>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && getAllGenreData.length > 0 && (
         <>
           <table
             {...getTableProps()}
