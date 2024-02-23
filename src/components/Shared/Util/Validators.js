@@ -44,3 +44,26 @@ export const validate = (value, validators) => {
   }
   return isValid;
 };
+
+export const validateBook = (values) => {
+  let errors = {};
+  if (!values.title) {
+    errors.title = " * Required";
+  }
+  if (!values.author) {
+    errors.author = " * Required";
+  }
+  if (!values.pages) {
+    errors.pages = " * Required";
+  }
+  if (!values.available_copies) {
+    errors.available_copies = " * Required";
+  }
+  if (!values.published_date) {
+    errors.published_date = " * Required";
+  }
+  if (!values.genre_id) {
+    errors.genre_id = " * Required";
+  }
+  return errors;
+};
