@@ -6,6 +6,7 @@ import getOneGenreSlice from "./Genre/getOneGenreSlice.js";
 import getAllPatronSlice from "./Patron/getPatronDataSlice.js";
 import getOnePatronSlice from "./Patron/getOnePatronSlice.js";
 import getAllBorrowedBooksSlice from "./History/getBorrowedBooksSlice.js";
+import getAttendanceDataSlice from "./Attendance/getAttendanceDataSlice.js";
 
 const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
     getAllPatrons: getAllPatronSlice,
     getOnePatron: getOnePatronSlice,
     getAllBorrowed: getAllBorrowedBooksSlice,
+    getAllAttendance: getAttendanceDataSlice,
   },
 });
 

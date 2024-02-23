@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { deletePatron } from "../../redux/Patron/deletePatronSlice";
-import { postAttendance } from "../../redux/History/postAttendanceDataSlice";
+import { postAttendance } from "../../redux/Attendance/postAttendanceDataSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RiDeleteBin5Line } from "react-icons/ri";
