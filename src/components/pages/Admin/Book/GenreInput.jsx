@@ -8,6 +8,7 @@ const GenreInput = ({ id, ...props }) => {
 
   return (
     <select id={id} {...field}>
+      <option value="">Select any Genre</option>
       {getAllGenreData.map((genre, index) => (
         <option key={index} value={genre.id}>
           {genre.genre_name}
