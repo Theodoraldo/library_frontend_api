@@ -26,14 +26,15 @@ export const SidebarData = [
     path: "/mainpage/issue_books",
     icon: <FaRegHandshake />,
   },
-  {
-    title: "Returned (History)",
-    path: "/mainpage/returned_books",
-    icon: <IoEnterSharp />,
-  },
+
   {
     title: "To Be Returned",
     path: "/mainpage/due_books",
     icon: <TbCalendarDue />,
+  },
+  {
+    title: "Attendance (Visitors)",
+    path: "/mainpage/attendance",
+    icon: <IoEnterSharp />,
   },
 ];

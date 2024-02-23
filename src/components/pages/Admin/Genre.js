@@ -48,16 +48,14 @@ const Genre = () => {
   return (
     <>
       <div className="text-2xl font-bold">List of Genres</div>
-      <div>
-        <div className="flex justify-between mt-2">
-          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
-            onClick={() => navigate("/mainpage/genre/new")}
-          >
-            Create Genre
-          </button>
-        </div>
+      <div className="flex justify-between mt-2">
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
+          onClick={() => navigate("/mainpage/genre/new")}
+        >
+          Create Genre
+        </button>
       </div>
       {loading && (
         <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
@@ -70,7 +68,7 @@ const Genre = () => {
         </div>
       )}
 
-      {!loading && !error && (
+      {!loading && !error && getAllGenreData.length > 0 && (
         <>
           <table
             {...getTableProps()}

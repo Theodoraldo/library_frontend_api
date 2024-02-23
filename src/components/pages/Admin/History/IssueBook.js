@@ -27,13 +27,9 @@ const IssueBook = () => {
   };
 
   useEffect(() => {
-    if (getAllBookData.length === 0) {
-      dispatch(fetchAllBook());
-    }
-    if (getAllPatronData.length === 0) {
-      dispatch(fetchAllPatrons());
-    }
-  }, [dispatch, getAllBookData, getAllPatronData]);
+    dispatch(fetchAllPatrons());
+    dispatch(fetchAllBook());
+  }, [dispatch]);
 
   const [inputBook, setInputBook] = useState("");
   const [suggestionBooks, setSuggestionBooks] = useState([]);
@@ -90,6 +86,26 @@ const IssueBook = () => {
         {({ setFieldValue }) => (
           <Form>
             <div className="text-2xl font-bold">Issue A Book</div>
+            {bookLoading && (
+              <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
+                Loading book data...
+              </div>
+            )}
+            {patronLoading && (
+              <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
+                Loading patron data...
+              </div>
+            )}
+            {bookError && (
+              <div className="text-red-500 font-bold bg-red-100 p-3 mt-3 rounded">
+                {bookError}
+              </div>
+            )}
+            {patronError && (
+              <div className="text-red-500 font-bold bg-red-100 p-3 mt-3 rounded">
+                {patronError}
+              </div>
+            )}
             <div className="mb-4 mt-4">
               <label
                 className="block text-gray-700 text-sm mb-2"
@@ -257,26 +273,6 @@ const IssueBook = () => {
           </Form>
         )}
       </Formik>
-      {bookLoading && (
-        <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
-          Loading book data...
-        </div>
-      )}
-      {patronLoading && (
-        <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
-          Loading patron data...
-        </div>
-      )}
-      {bookError && (
-        <div className="text-red-500 font-bold bg-red-100 p-3 mt-3 rounded">
-          {bookError}
-        </div>
-      )}
-      {patronError && (
-        <div className="text-red-500 font-bold bg-red-100 p-3 mt-3 rounded">
-          {patronError}
-        </div>
-      )}
     </div>
   );
 };

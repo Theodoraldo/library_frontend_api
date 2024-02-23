@@ -1,32 +1,30 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchAllPatrons } from "../../../redux/Patron/getPatronDataSlice";
+import { COLUMNS } from "../../Tables/BorrowColumns";
+import GlobalFilter from "../../Tables/GlobalFilter";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchBorrowedBook } from "../../../redux/History/getBorrowedBooksSlice";
 import {
   useTable,
   useSortBy,
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import { COLUMNS } from "../../Tables/PatronColumns";
-import GlobalFilter from "../../Tables/GlobalFilter";
 
-const LibraryPatron = () => {
-  const navigate = useNavigate();
+const BorrowedBooks = () => {
   const dispatch = useDispatch();
-  const { getAllPatronData, loading, error } = useSelector(
-    (state) => state.getAllPatrons
+  const { getAllBorrowedData, loading, error } = useSelector(
+    (state) => state.getAllBorrowed
   );
 
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAllPatrons());
+    dispatch(fetchBorrowedBook());
     setRefresh(false);
   }, [dispatch, refresh]);
 
   const columns = useMemo(() => COLUMNS(setRefresh), []);
-  const data = useMemo(() => getAllPatronData, [getAllPatronData]);
+  const data = useMemo(() => getAllBorrowedData, [getAllBorrowedData]);
 
   const {
     getTableProps,
@@ -47,21 +45,15 @@ const LibraryPatron = () => {
 
   return (
     <>
-      <div className="text-2xl font-bold">List of Library Patrons</div>
+      <div className="text-2xl font-bold">Books To Be Returned</div>
       <div>
         <div className="flex justify-between mt-2">
           <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
-            onClick={() => navigate("/mainpage/patron/new")}
-          >
-            New Patron
-          </button>
         </div>
       </div>
       {loading && (
         <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
-          Loading data...
+          Loading data ...
         </div>
       )}
       {error && (
@@ -70,7 +62,7 @@ const LibraryPatron = () => {
         </div>
       )}
 
-      {!loading && !error && getAllPatronData.length > 0 && (
+      {!loading && !error && (
         <>
           <table
             {...getTableProps()}
@@ -137,4 +129,4 @@ const LibraryPatron = () => {
   );
 };
 
-export default LibraryPatron;
+export default BorrowedBooks;

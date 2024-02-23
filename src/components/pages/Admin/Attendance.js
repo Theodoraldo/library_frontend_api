@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { fetchAllPatrons } from "../../../redux/Patron/getPatronDataSlice";
+import { fetchAllAttendance } from "../../../redux/Attendance/getAttendanceDataSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useTable,
@@ -8,25 +7,24 @@ import {
   useGlobalFilter,
   usePagination,
 } from "react-table";
-import { COLUMNS } from "../../Tables/PatronColumns";
+import { COLUMNS } from "../../Tables/AttendanceColumns";
 import GlobalFilter from "../../Tables/GlobalFilter";
 
-const LibraryPatron = () => {
-  const navigate = useNavigate();
+const Attendance = () => {
   const dispatch = useDispatch();
-  const { getAllPatronData, loading, error } = useSelector(
-    (state) => state.getAllPatrons
+  const { getAllAttendanceData, loading, error } = useSelector(
+    (state) => state.getAllAttendance
   );
 
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchAllPatrons());
+    dispatch(fetchAllAttendance());
     setRefresh(false);
   }, [dispatch, refresh]);
 
   const columns = useMemo(() => COLUMNS(setRefresh), []);
-  const data = useMemo(() => getAllPatronData, [getAllPatronData]);
+  const data = useMemo(() => getAllAttendanceData, [getAllAttendanceData]);
 
   const {
     getTableProps,
@@ -47,17 +45,9 @@ const LibraryPatron = () => {
 
   return (
     <>
-      <div className="text-2xl font-bold">List of Library Patrons</div>
-      <div>
-        <div className="flex justify-between mt-2">
-          <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          <button
-            className="bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 rounded border border-gray-400 shadow-lg"
-            onClick={() => navigate("/mainpage/patron/new")}
-          >
-            New Patron
-          </button>
-        </div>
+      <div className="text-2xl font-bold">Patrons Currently at The Library</div>
+      <div className="my-2">
+        <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
       </div>
       {loading && (
         <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
@@ -70,7 +60,7 @@ const LibraryPatron = () => {
         </div>
       )}
 
-      {!loading && !error && getAllPatronData.length > 0 && (
+      {!loading && !error && getAllAttendanceData.length > 0 && (
         <>
           <table
             {...getTableProps()}
@@ -137,4 +127,4 @@ const LibraryPatron = () => {
   );
 };
 
-export default LibraryPatron;
+export default Attendance;
