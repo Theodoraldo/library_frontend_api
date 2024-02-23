@@ -100,13 +100,11 @@ const CreateBook = () => {
                       component={<GenreInput id="genre_id" />}
                     />
                   </div>
-
                   <FormikImageInput
                     name="image"
                     label="Cover Image"
                     id="image"
                   />
-
                   <div className="mb-2">
                     <button
                       className="w-full bg-blue-500 hover:bg-blue-700 text-white py-1 px-4 mt-2 rounded focus:outline-none focus:shadow-outline border border-gray-400 shadow-lg"

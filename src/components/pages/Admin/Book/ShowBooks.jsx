@@ -49,6 +49,9 @@ const ShowBooks = (props) => {
               Title
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Quantity
+            </th>
+            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
               Author
             </th>
             <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -68,6 +71,9 @@ const ShowBooks = (props) => {
                   />
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">{book.title}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  {book.available_copies}
+                </td>
                 <td className="px-6 py-4 whitespace-nowrap">{book.author}</td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   {getAllGenreData.find((genre) => genre.id === book.genre_id)
