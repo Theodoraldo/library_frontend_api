@@ -23,12 +23,24 @@ export const putAttendance = createAsyncThunk(
         }
       });
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Checkout failed!",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
+      if (error.response) {
+        const errorData = error.response.data;
+        if (errorData.check_out) {
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: errorData.check_out[0],
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Ow nooo!",
+            text: "An unexpected error occurred. Please try again later.",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+      }
     }
   }
 );

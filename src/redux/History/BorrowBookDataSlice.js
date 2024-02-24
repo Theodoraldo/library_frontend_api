@@ -47,7 +47,8 @@ export const postIssueBook = createAsyncThunk(
             footer: '<a href="">Why do I have this issue?</a>',
           });
         }
-      } else if (error.request) {
+      }
+      if (error.request) {
         Swal.fire({
           icon: "error",
           title: "Ow network error!",
