@@ -23,12 +23,45 @@ export const postIssueBook = createAsyncThunk(
         }
       });
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Ow nooo!",
-        text: "Failed to issue book. Check your internet!",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
+      if (error.response) {
+        const responseData = error.response.data;
+        if (responseData.base) {
+          Swal.fire({
+            icon: "error",
+            title: "Ow nooo!",
+            text: responseData.base[0],
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        } else if (responseData.borrow_date) {
+          Swal.fire({
+            icon: "error",
+            title: "Ow Error in dates!",
+            text: responseData.borrow_date[0],
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Ow nooo!",
+            text: "An unexpected error occurred. Please try again later.",
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+      } else if (error.request) {
+        Swal.fire({
+          icon: "error",
+          title: "Ow network error!",
+          text: "A network error occurred. Please try again later.",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Ow nooo!",
+          text: "An unexpected error occurred. Please try again later.",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
     }
   }
 );
