@@ -32,23 +32,16 @@ export const postIssueBook = createAsyncThunk(
             text: responseData.base[0],
             footer: '<a href="">Why do I have this issue?</a>',
           });
-        } else if (responseData.borrow_date) {
+        }
+        if (responseData.borrow_date) {
           Swal.fire({
             icon: "error",
             title: "Ow Error in dates!",
             text: responseData.borrow_date[0],
             footer: '<a href="">Why do I have this issue?</a>',
           });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Ow nooo!",
-            text: "An unexpected error occurred. Please try again later.",
-            footer: '<a href="">Why do I have this issue?</a>',
-          });
         }
-      }
-      if (error.request) {
+      } else if (error.request) {
         Swal.fire({
           icon: "error",
           title: "Ow network error!",

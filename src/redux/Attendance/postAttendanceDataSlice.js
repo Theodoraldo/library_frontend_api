@@ -22,24 +22,16 @@ export const postAttendance = createAsyncThunk(
       });
     } catch (error) {
       if (error.response) {
-        const errorData = error.response.data;
-        if (errorData.check_engagement) {
+        const responseData = error.response.data;
+        if (responseData.check_engagement) {
           Swal.fire({
             icon: "warning",
             title: "Oops...",
-            text: errorData.check_engagement[0],
-            footer: '<a href="">Why do I have this issue?</a>',
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Ow nooo!",
-            text: "An unexpected error occurred. Please try again later.",
+            text: responseData.check_engagement[0],
             footer: '<a href="">Why do I have this issue?</a>',
           });
         }
-      }
-      if (error.request) {
+      } else if (error.request) {
         Swal.fire({
           icon: "error",
           title: "Ow network error!",
@@ -50,7 +42,7 @@ export const postAttendance = createAsyncThunk(
         Swal.fire({
           icon: "error",
           title: "Ow nooo!",
-          text: "An unexpected error occurred. Please try again later.",
+          text: "Could not processed data. Please try again later.",
           footer: '<a href="">Why do I have this issue?</a>',
         });
       }
