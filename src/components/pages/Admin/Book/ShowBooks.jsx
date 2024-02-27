@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
+import { fetchAllGenre } from "../../../../redux/Genre/getGenreDataSlice";
 import BookDetailsModal from "../../../UIElements/BooksModel";
 import BookImage from "../../../UIElements/BookImage";
 
@@ -10,15 +11,19 @@ const ShowBooks = (props) => {
   const [filteredBooks, setFilteredBooks] = useState([]);
   const { getAllGenreData } = useSelector((state) => state.getAllGenres);
   const itemsPerPage = 5;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const newFilteredBooks = props.books
-      ? props.books.filter((book) =>
-          book.title.toLowerCase().includes(props.filter.toLowerCase())
-        )
-      : [];
-    setFilteredBooks(newFilteredBooks);
-  }, [props.books, props.filter]);
+    dispatch(fetchAllGenre());
+    if (getAllGenreData.length > 0) {
+      const newFilteredBooks = props.books
+        ? props.books.filter((book) =>
+            book.title.toLowerCase().includes(props.filter.toLowerCase())
+          )
+        : [];
+      setFilteredBooks(newFilteredBooks);
+    }
+  }, [props.books, props.filter, getAllGenreData, dispatch]);
 
   const books = filteredBooks.slice(
     currentPage * itemsPerPage,
