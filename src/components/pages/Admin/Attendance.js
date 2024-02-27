@@ -46,8 +46,12 @@ const Attendance = () => {
   return (
     <>
       <div className="text-2xl font-bold">Patrons Currently at The Library</div>
-      <div className="my-2">
+      <div className="flex justify-between my-2">
         <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+        <span className="text-gray-600 text-2xl">
+          <span className="text-red-700 font-bold">{data.length}</span>{" "}
+          {data.length <= 1 ? "person at the library" : "people at the library"}
+        </span>
       </div>
       {loading && (
         <div className="text-green-500 font-bold bg-green-100 p-3 mt-3 rounded">
@@ -60,7 +64,7 @@ const Attendance = () => {
         </div>
       )}
 
-      {!loading && !error && getAllAttendanceData.length > 0 && (
+      {!loading && !error && (
         <>
           <table
             {...getTableProps()}

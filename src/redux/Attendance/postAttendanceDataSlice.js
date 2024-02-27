@@ -21,12 +21,31 @@ export const postAttendance = createAsyncThunk(
         }
       });
     } catch (error) {
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Failed to save attendance data!",
-        footer: '<a href="">Why do I have this issue?</a>',
-      });
+      if (error.response) {
+        const responseData = error.response.data;
+        if (responseData.check_engagement) {
+          Swal.fire({
+            icon: "warning",
+            title: "Oops...",
+            text: responseData.check_engagement[0],
+            footer: '<a href="">Why do I have this issue?</a>',
+          });
+        }
+      } else if (error.request) {
+        Swal.fire({
+          icon: "error",
+          title: "Ow network error!",
+          text: "A network error occurred. Please try again later.",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Ow nooo!",
+          text: "Could not processed data. Please try again later.",
+          footer: '<a href="">Why do I have this issue?</a>',
+        });
+      }
     }
   }
 );
